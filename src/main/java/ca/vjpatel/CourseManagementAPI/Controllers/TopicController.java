@@ -29,4 +29,9 @@ public class TopicController {
         topicService.addTopic(topic);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/topics/{id}")
+    public void updateTopic(@PathVariable String id, @RequestBody Topic topic) {
+        topicService.updateTopic(id, topic);
+    }
+
 }
