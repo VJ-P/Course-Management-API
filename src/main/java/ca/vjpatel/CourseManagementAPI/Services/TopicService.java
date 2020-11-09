@@ -1,6 +1,7 @@
 package ca.vjpatel.CourseManagementAPI.Services;
 
 import ca.vjpatel.CourseManagementAPI.Models.Topic;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +10,10 @@ import java.util.List;
 
 @Service
 public class TopicService {
+
+    @Autowired
+    private TopicRepository topicRepository;
+
     List<Topic> topics = new ArrayList<>(Arrays.asList(
             new Topic("SFWRENG-3K04", "Software Development", "Software design process. Professional responsibility. Using specifications. Documentation. Module Specification. Module interfaces. Module internal documentation. Coding styles. Portability. Software inspection. Software testing."),
             new Topic("COMPENG-3DQ5", "Digital Systems Design", "Advanced design methods of digital systems including modelling, simulation, synthesis and verification using hardware description languages, timing analysis and hardware debugging; implementation of computer peripherals in programmable devices."),
@@ -16,6 +21,8 @@ public class TopicService {
         ));
 
     public List<Topic> getAllTopics() {
+        List<Topic> topics = new ArrayList<Topic>();
+        topicRepository.findAll().forEach(topics::add);
         return topics;
     }
 
@@ -24,7 +31,7 @@ public class TopicService {
     }
 
     public void addTopic(Topic topic) {
-        topics.add(topic);
+        topicRepository.save(topic);
     }
 
     public void updateTopic(String id, Topic topic) {
